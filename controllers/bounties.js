@@ -51,7 +51,15 @@ ROUTER.put('/:id', (req, res) => {
     });
 });
 // DELETE '/:id' - delete one bounty
-
-
+ROUTER.delete('/:id', (req, res) => {
+    DB.Bounty.findByIdAndDelete(req.params.id)
+    .then(() => {
+        res.status(204).send({ message: 'We killed it' });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).send({ message: 'Internal server error' });
+    });
+});
 
 module.exports = ROUTER;
